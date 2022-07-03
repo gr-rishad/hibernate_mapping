@@ -1,11 +1,14 @@
 package com.hibernate_mapping.OneToOne.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hibernate_mapping.OneToManyBiDirectional.entity.Course;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -29,4 +32,16 @@ public class Instructor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "instructor_detail_id")
     private InstructorDetails instructorDetails;
+
+
+    @OneToMany(mappedBy = "instructor", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    private List<Course> courses;
+
+    public void addCourse(Course course) {
+        if (courses == null) {
+            courses = new ArrayList<>();
+        }
+        courses.add(course);
+        course.setInstructor(this);
+    }
 }

@@ -1,5 +1,6 @@
 package com.hibernate_mapping.OneToOne.service;
 
+import com.hibernate_mapping.OneToManyBiDirectional.entity.Course;
 import com.hibernate_mapping.OneToOne.entity.Instructor;
 import com.hibernate_mapping.OneToOne.entity.InstructorDetails;
 import com.hibernate_mapping.OneToOne.repository.InstructorJpaRepository;
@@ -7,6 +8,7 @@ import com.hibernate_mapping.util.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class InstructorService implements BaseService<Instructor> {
 
     private InstructorJpaRepository instructorJpaRepository;
+    List<Course> courseList = new ArrayList<>();
 
     @Autowired
     public InstructorService(InstructorJpaRepository instructorJpaRepository) {
@@ -24,9 +27,21 @@ public class InstructorService implements BaseService<Instructor> {
     public Instructor saveOrUpdate(Instructor instructor) {
         InstructorDetails instructorDetails = instructor.getInstructorDetails();
         instructor.setInstructorDetails(instructorDetails);
+
+
+        // course
+
+        //   instructor.getCourses().stream().map(course ->instructor.addCourse(course) ).collect(Collectors.toList());
+        for (Course course : instructor.getCourses()) {
+            course.setInstructor(instructor);
+            courseList.add(course);
+        }
+        instructor.setCourses(courseList);
         instructor = instructorJpaRepository.save(instructor);
+
         return instructor;
     }
+
 
     @Override
     public Optional<Instructor> findById(Long id) {
