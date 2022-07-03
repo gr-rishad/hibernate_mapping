@@ -1,5 +1,6 @@
 package com.hibernate_mapping.OneToOne.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +24,10 @@ public class InstructorDetails {
 
     @Column(name = "hobby")
     private String hobby;
+
+
+    @JsonIgnoreProperties("instructorDetails")
+    @OneToOne(mappedBy = "instructorDetails", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Instructor instructor;
 
 }

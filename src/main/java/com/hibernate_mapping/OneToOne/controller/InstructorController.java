@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/instructor")
 public class InstructorController {
@@ -22,6 +24,12 @@ public class InstructorController {
     public ResponseEntity<Instructor> createInstructor(@RequestBody Instructor instructor) {
         Instructor instructor1 = instructorService.saveOrUpdate(instructor);
         return ResponseEntity.ok(instructor1);
+    }
+
+    @GetMapping("/findInstructorBy/{id}")
+    public Optional<Instructor> findInstructor(@PathVariable("id") Long id) {
+        Optional<Instructor> instructor = instructorService.findById(id);
+        return instructor;
     }
 
     @DeleteMapping("/deleteBy/{instructorId}")

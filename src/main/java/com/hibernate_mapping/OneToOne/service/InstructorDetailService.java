@@ -2,6 +2,7 @@ package com.hibernate_mapping.OneToOne.service;
 
 import com.hibernate_mapping.OneToOne.entity.InstructorDetails;
 import com.hibernate_mapping.OneToOne.repository.InstructorDetailJpaRepository;
+import com.hibernate_mapping.exception.ResourceNotFoundException;
 import com.hibernate_mapping.util.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,14 @@ public class InstructorDetailService implements BaseService<InstructorDetails> {
 
     @Override
     public Optional<InstructorDetails> findById(Long id) {
-        return instructorDetailJpaRepository.findById(id);
+        InstructorDetails instructorDetails = instructorDetailJpaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("InstructorDetail", "id", id));
+        return Optional.of(instructorDetails);
     }
 
     @Override
     public void delete(Long id) {
+        InstructorDetails instructorDetails = findById(id).orElseThrow(() -> new ResourceNotFoundException("InstructorDetail", "id", id));
+        instructorDetails.getInstructor().setInstructorDetails(null);
         instructorDetailJpaRepository.deleteById(id);
     }
 
