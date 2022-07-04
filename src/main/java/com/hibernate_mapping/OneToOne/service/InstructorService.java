@@ -30,12 +30,11 @@ public class InstructorService implements BaseService<Instructor> {
 
 
         // course
-
-        //   instructor.getCourses().stream().map(course ->instructor.addCourse(course) ).collect(Collectors.toList());
-        for (Course course : instructor.getCourses()) {
+        for (Course course :instructor.getCourses()) {
             course.setInstructor(instructor);
             courseList.add(course);
         }
+
         instructor.setCourses(courseList);
         instructor = instructorJpaRepository.save(instructor);
 

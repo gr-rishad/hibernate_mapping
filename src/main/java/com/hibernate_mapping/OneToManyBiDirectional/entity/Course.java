@@ -1,5 +1,6 @@
 package com.hibernate_mapping.OneToManyBiDirectional.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hibernate_mapping.OneToOne.entity.Instructor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Course {
     @Column(name = "title")
     private String title;
 
+    @JsonIgnoreProperties("courses")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;

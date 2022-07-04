@@ -34,6 +34,7 @@ public class Instructor {
     private InstructorDetails instructorDetails;
 
 
+    @JsonIgnoreProperties("instructor")
     @OneToMany(mappedBy = "instructor", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Course> courses;
 
