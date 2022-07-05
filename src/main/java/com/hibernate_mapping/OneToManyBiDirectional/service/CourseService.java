@@ -2,7 +2,6 @@ package com.hibernate_mapping.OneToManyBiDirectional.service;
 
 import com.hibernate_mapping.OneToManyBiDirectional.entity.Course;
 import com.hibernate_mapping.OneToManyBiDirectional.repository.CourseRepository;
-import com.hibernate_mapping.OneToOne.entity.Instructor;
 import com.hibernate_mapping.util.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +22,13 @@ public class CourseService implements BaseService<Course> {
     @Override
     public Course saveOrUpdate(Course course) {
 
-        Instructor instructor= course.getInstructor();
-        System.out.println("--------------"+instructor);
-//        for (Course course1:instructor.getCourses()) {
-//            instructor.addCourse(course1);
-//        }
+        //course.addReview(course.getReviews().stream().map(review -> Review::new));
+        // course.addReview(course.getReviews().stream().map());
+        //for (Review review: course.getReviews()){
+        //  course.setReviews(course.getReviews());
+        // course.
+        //}
+
         return courseRepository.save(course);
     }
 

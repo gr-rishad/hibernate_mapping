@@ -34,4 +34,7 @@ public class CourseController {
         courseService.delete(courseId);
         return ResponseEntity.ok("Delete Successfully");
     }
+
+
+
 }
