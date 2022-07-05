@@ -28,16 +28,21 @@ public class InstructorService implements BaseService<Instructor> {
         InstructorDetails instructorDetails = instructor.getInstructorDetails();
         instructor.setInstructorDetails(instructorDetails);
 
-
-        // course
-        for (Course course :instructor.getCourses()) {
-            course.setInstructor(instructor);
-            courseList.add(course);
+/*
+        //course
+        Iterator<Course> obj= instructor.getCourses().iterator();
+        while (obj.hasNext()){
+            Course course=obj.next();
+            instructor.addCourse(course);
         }
+        for (Course course : instructor.getCourses()) {
+             course.setInstructor(instructor);
+             courseList.add(course);
+        }
+ */
 
         instructor.setCourses(courseList);
         instructor = instructorJpaRepository.save(instructor);
-
         return instructor;
     }
 

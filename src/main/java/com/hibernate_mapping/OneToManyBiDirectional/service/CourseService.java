@@ -25,9 +25,9 @@ public class CourseService implements BaseService<Course> {
 
         Instructor instructor= course.getInstructor();
         System.out.println("--------------"+instructor);
-        for (Course course1:instructor.getCourses()) {
-            instructor.addCourse(course1);
-        }
+//        for (Course course1:instructor.getCourses()) {
+//            instructor.addCourse(course1);
+//        }
         return courseRepository.save(course);
     }
 

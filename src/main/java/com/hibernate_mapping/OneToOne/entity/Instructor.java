@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,14 +34,14 @@ public class Instructor {
 
 
     @JsonIgnoreProperties("instructor")
-    @OneToMany(mappedBy = "instructor", cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "instructor", fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     private List<Course> courses;
 
-    public void addCourse(Course course) {
-        if (courses == null) {
-            courses = new ArrayList<>();
-        }
-        courses.add(course);
-        course.setInstructor(this);
-    }
+//    public void addCourse(Course course) {
+//        if (courses == null) {
+//            courses = new ArrayList<>();
+//        }
+//        courses.add(course);
+//        course.setInstructor(this);
+//    }
 }
