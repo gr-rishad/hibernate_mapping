@@ -29,6 +29,12 @@ public class CourseService implements BaseService<Course> {
         // course.
         //}
 
+//        for (Student student: course.getStudents()){
+//            course.setStudents(student);
+//
+//        }
+
+
         return courseRepository.save(course);
     }
 
